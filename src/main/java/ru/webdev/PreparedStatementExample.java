@@ -1,28 +1,26 @@
 package ru.webdev;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import ru.webdev.util.DatabaseManager;
 
 public class PreparedStatementExample {
     
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String USER = "postgres"; // имя по умолчанию, если используете собсевенное наименование, замените
-    private static final String PASSWORD = "password"; // пароль укзан при запуске контейнера, если используете собственное наименование, замените
-    
     public static void main(String[] args) {
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            createTable(connection);
-            insertRecords(connection);
-            ResultSet resultSet = retriveRecords(connection);
-            printRecords(resultSet);
+        try {
+            DatabaseManager.initializeDatabase();
+            try (Connection connection = DatabaseManager.getConnection()) {
+                createTable(connection);
+                insertRecords(connection);
+                ResultSet resultSet = retriveRecords(connection);
+                printRecords(resultSet);
+            } catch (Exception e) {
+                System.out.println("Error connecting to databas e" + e.getMessage());
+                e.printStackTrace();
+            }
         } catch (Exception e) {
-            System.out.println("Error connecting to databas e" + e.getMessage());
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+        
     }
     
     private static void printRecords(ResultSet resultSet) throws SQLException {
