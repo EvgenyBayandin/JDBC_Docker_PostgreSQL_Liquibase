@@ -19,3 +19,10 @@
 - класс CallableStatementExampl.java демонстрирует пример подключения к базе данных и работу с Statement и хранимыми процедурами;
 - класс TransactionExample.java демонстрирует пример подключения к базе данных и работу с Statement и транзакциями в БД;
 - класс LiquibaseExample.java демонстрирует пример подключения к базе данных и миграции в БД с помощью файлов миграций.
+
+### Стек: 
+`Java 21`
+`JDBC`
+`Docker`
+`PostgreSQL 15`
+`Liquibase`
